@@ -68,11 +68,30 @@ namespace Parse
                     }
                 }
 
-                // String constants
+                /**
+                 * String constants
+                 * if the character is a double quote then the buf char array will take in
+                 * the character representation of the integer ch.
+                 * then ch will read in the next character which will be put in buf array until
+                 * ch is again a double quote, then buf adds a double quote and we return
+                 * a string token of buf from 0 to length - 1
+                 * 
+                 */
                 else if (ch == '"')
                 {
-                    // TODO: scan a string into the buffer variable buf
-                    return new StringToken(new String(buf, 0, 0));
+                    buf[0] = (char)ch;
+                    ch = In.Read();
+
+                    int i = 1;
+
+                    while (ch!='"')
+                    {
+                        buf[i] = (char)ch;
+                        ch = In.Read();
+                        i++;
+                    }
+                    buf[i] = '"';
+                    return new StringToken(new String(buf, 0, i-1));
                 }
 
     
