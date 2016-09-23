@@ -107,7 +107,6 @@ namespace Parse
                 {
                     int i = ch - '0';
                     ch = In.Read();
-                    // TODO: scan the number and convert it to an integer
                     while(ch >= '0' && ch <= '9')
                     {
                         i = (i * 10) + (ch - '0');
@@ -119,7 +118,8 @@ namespace Parse
                 }
         
                 // Identifiers
-                else if (ch >= 'A' && ch <= 'Z'
+                else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '!' && ch <= ':') 
+                    || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~'
                          // or ch is some other valid first character
                          // for an identifier
                          ) {
