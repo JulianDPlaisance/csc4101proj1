@@ -94,13 +94,25 @@ namespace Parse
                     return new StringToken(new String(buf, 0, i-1));
                 }
 
-    
-                // Integer constants
+
+                /**
+                 * Integer constants
+                 * if the character is a number 0 through 9 then make i equal to the number
+                 * while the input stream is still giving numbers i is multiplied by 10 
+                 * and the new number is added to i
+                 * i is returned
+                 * 
+                 */
                 else if (ch >= '0' && ch <= '9')
                 {
                     int i = ch - '0';
+                    ch = In.Read();
                     // TODO: scan the number and convert it to an integer
-
+                    while(ch >= '0' && ch <= '9')
+                    {
+                        i = (i * 10) + (ch - '0');
+                        ch = In.Read();
+                    }
                     // make sure that the character following the integer
                     // is not removed from the input stream
                     return new IntToken(i);
