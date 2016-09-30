@@ -29,8 +29,16 @@ namespace Parse
                 // buffer, but reading individual characters from the
                 // input stream is easier.
                 ch = In.Read();
-   
+
                 // TODO: skip white space and comments
+                if (ch == ' ')
+                { ch = In.Read(); }
+                if (ch == ';')
+                {
+                    while (ch != '\n')
+                    { ch = In.Read(); }
+                    ch = In.Read();
+                }
 
                 if (ch == -1)
                     return null;
@@ -116,21 +124,26 @@ namespace Parse
                     // is not removed from the input stream
                     return new IntToken(i);
                 }
-        
-                // Identifiers
-                else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '!' && ch <= ':') 
-                    || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~'
-                         // or ch is some other valid first character
-                         // for an identifier
-                         ) {
-                    // TODO: scan an identifier into the buffer
+                //superman=clark kent ident
+                else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&')
+                        || ch == '*' || ch == '+' || (ch >= '-' && ch <= '/') || ch == ':'
+                        || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~')
+                {
 
+                    buf[0] = (char)ch;
+                    ch = In.Read();
+                    int i = 1;
+                    while (ch != ' ')
+                    {
+                        buf[i] = (char)ch;
+                        ch = In.Read();
+                        i++;
+                    }
                     // make sure that the character following the integer
                     // is not removed from the input stream
-
-                    return new IdentToken(new String(buf, 0, 0));
+                    return new IdentToken(new String(buf, 0, i - 1));
                 }
-    
+
                 // Illegal character
                 else
                 {
