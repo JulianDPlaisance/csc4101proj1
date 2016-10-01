@@ -42,7 +42,9 @@ namespace Parse
     public class Parser {
 	
         private Scanner scanner;
-        Token scannerToken;
+        private Token scannerToken;
+        private Nil NIN = new Nil();
+        private BoolLit trueLit = new BoolLit(true), faLit = new BoolLit(false);
         public Parser(Scanner s)
         {
             scanner = s;
@@ -59,13 +61,13 @@ namespace Parse
                         return parseRest(scannerToken.getType());
                         
                     case TokenType.FALSE:
-                        return new BoolLit(false);
+                        return faLit;
                         
                     case TokenType.TRUE:
-                        return new BoolLit(true);
+                        return trueLit;
 
                     case TokenType.QUOTE:
-                        return new Cons(parseExp(), new Nil());
+                        return new Cons(parseExp(), NIN);
 
                     case TokenType.INT:
                         return new IntLit(scannerToken.getIntVal());
@@ -88,7 +90,7 @@ namespace Parse
             switch (t)
             {
                 case TokenType.RPAREN:
-                    return new Nil();
+                    return NIN;
 
                 default:
                     return new Cons(parseExp(), parseRest(scannerToken.getType()));
