@@ -42,48 +42,59 @@ namespace Parse
     public class Parser {
 	
         private Scanner scanner;
-        public Parser(Scanner s) { scanner = s; }
-        private bool isOpened = false;
+        private Token scannerToken;
+        private Nil NIN = new Nil();
+        private BoolLit trueLit = new BoolLit(true), faLit = new BoolLit(false);
+        public Parser(Scanner s)
+        {
+            scanner = s;
+            
+        }
+
         public Node parseExp()
         {
-            
-        //TODO: write code for parsing an exp
-            switch (scanner.getNextToken().getType())
+            scannerToken = scanner.getNextToken();
+            //TODO: write code for parsing an exp
+            switch (scannerToken.getType())
                 {
                     case TokenType.LPAREN:
-                    if (!isOpened)
-                    {
-                        isOpened = true;
-                    }
-                        parseRest();
-                        break;
-                    case TokenType.FALSE:
+                        return parseRest(scannerToken.getType());
                         
-                        break;
+                    case TokenType.FALSE:
+                        return faLit;
+                        
                     case TokenType.TRUE:
-                        break;
+                        return trueLit;
+
                     case TokenType.QUOTE:
-                        break;
+                        return new Cons(parseExp(), NIN);
+
                     case TokenType.INT:
-                        break;
+                        return new IntLit(scannerToken.getIntVal());
+
                     case TokenType.STRING:
-                        break;
+                        return new StringLit(scannerToken.getStringVal());
+
                     case TokenType.IDENT:
-                        break;
+                        return new Ident(scannerToken.getName());
+
                     default:
-                    Console.Write("FUCCCCCCCCI");
+                        parseExp();
                         break;
                 }
             return null;
         }
   
-        protected Node parseRest()
+        protected Node parseRest(TokenType t)
         {
-            //switch()
-            //{
+            switch (t)
+            {
+                case TokenType.RPAREN:
+                    return NIN;
 
-            //}
-            return null;
+                default:
+                    return new Cons(parseExp(), parseRest(scannerToken.getType()));
+            }
         }
 
         // TODO: Add any additional methods you might need.

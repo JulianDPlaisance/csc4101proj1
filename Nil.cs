@@ -23,5 +23,7 @@ namespace Tree
             else
                 Console.WriteLine("()");
         }
+
+        public override bool isNull() { return true; }
     }
 }
