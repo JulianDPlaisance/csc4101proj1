@@ -42,18 +42,47 @@ namespace Parse
     public class Parser {
 	
         private Scanner scanner;
-
         public Parser(Scanner s) { scanner = s; }
-  
+        private bool isOpened = false;
         public Node parseExp()
         {
-            // TODO: write code for parsing an exp
+            
+        //TODO: write code for parsing an exp
+            switch (scanner.getNextToken().getType())
+                {
+                    case TokenType.LPAREN:
+                    if (!isOpened)
+                    {
+                        isOpened = true;
+                    }
+                        parseRest();
+                        break;
+                    case TokenType.FALSE:
+                        
+                        break;
+                    case TokenType.TRUE:
+                        break;
+                    case TokenType.QUOTE:
+                        break;
+                    case TokenType.INT:
+                        break;
+                    case TokenType.STRING:
+                        break;
+                    case TokenType.IDENT:
+                        break;
+                    default:
+                    Console.Write("FUCCCCCCCCI");
+                        break;
+                }
             return null;
         }
   
         protected Node parseRest()
         {
-            // TODO: write code for parsing a rest
+            //switch()
+            //{
+
+            //}
             return null;
         }
 
