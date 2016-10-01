@@ -13,15 +13,21 @@ namespace Tree
             print(n, false);
         }
 
-        public override void print(int n, bool p) {
-	    // There got to be a more efficient way to print n spaces.
-	    for (int i = 0; i < n; i++)
-                Console.Write(" ");
+        public override void print(int n, bool p)
+        {
+            String spaceStr = "";
+            // There got to be a more efficient way to print n spaces.
+            for (int i = 0; i < n; i++)
+                spaceStr += " ";
+
+            Console.Write(spaceStr);
 
             if (p)
                 Console.WriteLine(")");
             else
                 Console.WriteLine("()");
         }
+
+        public override bool isNull() { return true; }
     }
 }

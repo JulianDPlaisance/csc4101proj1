@@ -21,6 +21,8 @@ namespace Tree
                 spaceStr += " ";
             Console.WriteLine(spaceStr + "\"" + stringVal + "\"");
         }
+
+        public override bool isString() { return true; }
     }
 }
 

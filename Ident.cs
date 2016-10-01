@@ -22,6 +22,8 @@ namespace Tree
 
             Console.WriteLine(spaceStr + name);
         }
+
+        public override bool isSymbol() { return true; }
     }
 }
 

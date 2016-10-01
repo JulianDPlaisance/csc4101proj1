@@ -29,6 +29,8 @@ namespace Tree
         {
             // TODO: implement this function and any helper functions
             // you might need.
+
+
         }
  
         public override void print(int n)
@@ -40,6 +42,8 @@ namespace Tree
         {
             form.print(this, n, p);
         }
+
+        public override bool isPair() { return true; }
     }
 }
 
