@@ -24,6 +24,11 @@ namespace Tree
         }
 
         public override bool isSymbol() { return true; }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }
 

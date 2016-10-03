@@ -30,6 +30,41 @@ namespace Tree
             // TODO: implement this function and any helper functions
             // you might need.
 
+            if (car.isSymbol())
+            {
+                String ident = ((Ident)car).ToString();
+                ident = ident.ToUpper();
+                switch (ident)
+                {
+                    case "BEGIN":
+                        form = new Begin();
+                        break;
+                    case "COND":
+                        form = new Cond();
+                        break;
+                    case "DEFINE":
+                        form = new Define();
+                        break;
+                    case "IF":
+                        form = new If();
+                        break;
+                    case "LAMBDA":
+                        form = new Lambda();
+                        break;
+                    case "LET":
+                        form = new Let();
+                        break;
+                    case "QUOTE":
+                        form = new Quote();
+                        break;
+                    case "SET":
+                        form = new Set();
+                        break;
+                    default:
+                        form = new Regular();
+                        break;
+                }
+            }
 
         }
  

@@ -54,6 +54,9 @@ namespace Parse
         public Node parseExp()
         {
             scannerToken = scanner.getNextToken();
+            if (scannerToken == null)
+                return null;
+
             //TODO: write code for parsing an exp
             switch (scannerToken.getType())
                 {
@@ -67,7 +70,7 @@ namespace Parse
                         return trueLit;
 
                     case TokenType.QUOTE:
-                        return new Cons(parseExp(), NIN);
+                        return new Cons(new Ident("quote"), new Cons(parseExp(), NIN)); //need to check for null here
 
                     case TokenType.INT:
                         return new IntLit(scannerToken.getIntVal());
@@ -93,7 +96,7 @@ namespace Parse
                     return NIN;
 
                 default:
-                    return new Cons(parseExp(), parseRest(scannerToken.getType()));
+                    return new Cons(parseExp(), parseRest(scannerToken.getType())); // need a . case and a null check
             }
         }
 
