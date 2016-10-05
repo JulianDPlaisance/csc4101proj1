@@ -7,9 +7,12 @@ namespace Tree
     public class Define : Special
     {
         // TODO: Add any fields needed.
-
+        bool isVar;
         // TODO: Add an appropriate constructor.
-	public Define() { }
+	public Define(bool IAmTheAlphaAndTheOmega)
+        {
+            isVar = IAmTheAlphaAndTheOmega;
+        }
 
         public override void print(Node t, int n, bool p)
         {
@@ -23,8 +26,15 @@ namespace Tree
             if (!p)
                 Console.Write("(");
 
-            Console.Write("DEFINE ");
-            t.print(0, !p);
+            if (isVar)
+            {
+                Console.Write("DEFINE ");
+                t.print(0, !p);
+            }
+            else
+            {
+                Console.Write("Define FUNCTION");
+            }
         }
     }
 }

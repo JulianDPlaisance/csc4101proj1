@@ -43,7 +43,7 @@ namespace Tree
                         form = new Cond();
                         break;
                     case "DEFINE":
-                        form = new Define();
+                        form = new Define(true);
                         break;
                     case "IF":
                         form = new If();
@@ -55,7 +55,7 @@ namespace Tree
                         form = new Let();
                         break;
                     case "QUOTE":
-                        form = new Quote();
+                        form = new Quote(true);
                         break;
                     case "SET":
                         form = new Set();
@@ -67,7 +67,28 @@ namespace Tree
             }
 
         }
- 
+
+        public override Node getCar()
+        {
+            return car;
+        }
+
+        public override Node getCdr()
+        {
+            return cdr;
+        }
+
+        public override void setCar(Node a)
+        {
+            car = a;
+            parseList();
+        }
+
+        public override void setCdr(Node d)
+        {
+            cdr = d;
+        }
+
         public override void print(int n)
         {
             form.print(this, n, false);
