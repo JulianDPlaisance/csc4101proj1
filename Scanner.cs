@@ -30,30 +30,37 @@ namespace Parse
                 // input stream is easier.
                 ch = In.Read();
 
+                if (ch == -1)
+                    return null;
+
                 // TODO: skip white space and comments
-                if (ch == ' ')
-                { ch = In.Read(); }
+                if (ch == ' ' || ch == '\n')
+                {
+                    return getNextToken();
+                }
                 if (ch == ';')
                 {
                     while (ch != '\n')
                     { ch = In.Read(); }
-                    ch = In.Read();
+                    return getNextToken();
                 }
-
-                if (ch == -1)
-                    return null;
         
+
                 // Special characters
                 else if (ch == '\'')
                     return new Token(TokenType.QUOTE);
+
                 else if (ch == '(')
                     return new Token(TokenType.LPAREN);
+
                 else if (ch == ')')
                     return new Token(TokenType.RPAREN);
+
                 else if (ch == '.')
-                    // We ignore the special identifier `...'.
                     return new Token(TokenType.DOT);
                 
+
+
                 // Boolean constants
                 else if (ch == '#')
                 {
@@ -61,8 +68,10 @@ namespace Parse
 
                     if (ch == 't')
                         return new Token(TokenType.TRUE);
+
                     else if (ch == 'f')
                         return new Token(TokenType.FALSE);
+
                     else if (ch == -1)
                     {
                         Console.Error.WriteLine("Unexpected EOF following #");
@@ -72,7 +81,7 @@ namespace Parse
                     {
                         Console.Error.WriteLine("Illegal character '" +
                                                 (char)ch + "' following #");
-                        return getNextToken();
+                        return null;
                     }
                 }
 
@@ -91,15 +100,22 @@ namespace Parse
                     ch = In.Read();
 
                     int i = 1;
-
+                    
                     while (ch!='"')
                     {
-                        buf[i] = (char)ch;
-                        ch = In.Read();
-                        i++;
+                        if (ch != -1)
+                        {
+                            buf[i] = (char)ch;
+                            ch = In.Read();
+                            i++;
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
-                    buf[i] = '"';
-                    return new StringToken(new String(buf, 0, i-1));
+                    buf[i] = (char)ch;
+                    return new StringToken(new String(buf));
                 }
 
 
@@ -130,26 +146,40 @@ namespace Parse
                         || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~')
                 {
 
-                    buf[0] = (char)ch;
-                    ch = In.Read();
-                    int i = 1;
-                    while (ch != ' ')
+                    int i = 0;
+                    buf[i] = (char)ch;
+
+                    while (ch != ' ' || ch != '\n')
                     {
-                        buf[i] = (char)ch;
-                        ch = In.Read();
-                        i++;
+                        if (ch != -1)
+                        {
+                            i++;
+                            ch = In.Read();
+                            buf[i] = (char)ch;
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
                     // make sure that the character following the integer
                     // is not removed from the input stream
-                    return new IdentToken(new String(buf, 0, i - 1));
+                    return new IdentToken(new String(buf));
                 }
 
                 // Illegal character
                 else
                 {
-                    Console.Error.WriteLine("Illegal input character '"
-                                            + (char)ch + '\'');
-                    return getNextToken();
+                    if (ch != -1)
+                    {
+                        Console.Error.WriteLine("Illegal input character '"
+                                                + (char)ch + '\'');
+                        return getNextToken();
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             catch (IOException e)

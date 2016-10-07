@@ -32,8 +32,8 @@ namespace Tree
 
             if (car.isSymbol())
             {
-                String ident = ((Ident)car).ToString();
-                ident = ident.ToUpper();
+                String ident = ((Ident)car).ToString().ToUpper();
+
                 switch (ident)
                 {
                     case "BEGIN":
@@ -43,7 +43,7 @@ namespace Tree
                         form = new Cond();
                         break;
                     case "DEFINE":
-                        form = new Define(true);
+                        form = new Define();
                         break;
                     case "IF":
                         form = new If();
@@ -53,6 +53,9 @@ namespace Tree
                         break;
                     case "LET":
                         form = new Let();
+                        break;
+                    case "'":
+                        form = new Quote(false);
                         break;
                     case "QUOTE":
                         form = new Quote(true);
@@ -64,6 +67,10 @@ namespace Tree
                         form = new Regular();
                         break;
                 }
+            }
+            else
+            {
+                form = new Regular();
             }
 
         }

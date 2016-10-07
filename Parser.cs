@@ -54,49 +54,80 @@ namespace Parse
         public Node parseExp()
         {
             scannerToken = scanner.getNextToken();
+            Console.WriteLine(scannerToken + "ExpACL");
             if (scannerToken == null)
+            {
+                Console.Write("NullParseExp()   ");
                 return null;
-
+            }
+            else
+                return parseExp(scannerToken);
+        }
+        public Node parseExp(Token t)
+        {
+            Console.WriteLine(scannerToken + "Exp(Token)");
             //TODO: write code for parsing an exp
             switch (scannerToken.getType())
                 {
                     case TokenType.LPAREN:
-                        return parseRest(scannerToken.getType());
+                    Console.Write("YEA BOI (    ");
+                    return parseRest();
                         
                     case TokenType.FALSE:
-                        return faLit;
+                    Console.Write("YEA FALSE#    ");
+                    return faLit;
                         
                     case TokenType.TRUE:
-                        return trueLit;
+                    Console.Write("YEA #TRUE    ");
+                    return trueLit;
 
                     case TokenType.QUOTE:
-                        return new Cons(new Ident("quote"), new Cons(parseExp(), NIN)); //need to check for null here
+                    Console.Write("YEA QUOTE    ");
+                    return new Cons(new Ident(scannerToken.getName()), new Cons(parseExp(), NIN)); //need to check for null here
 
                     case TokenType.INT:
-                        return new IntLit(scannerToken.getIntVal());
+                    Console.WriteLine(scannerToken.getIntVal() + "INT");
+                    return new IntLit(scannerToken.getIntVal());
 
                     case TokenType.STRING:
-                        return new StringLit(scannerToken.getStringVal());
+                    Console.Write("YEA STRING THEORY    ");
+                    return new StringLit(scannerToken.getStringVal());
 
                     case TokenType.IDENT:
-                        return new Ident(scannerToken.getName());
+                    Console.Write("Clark Wayne?    ");
+                    return new Ident(scannerToken.getName());
 
                     default:
-                        parseExp();
-                        break;
+                    Console.Write("DEFAULT MODE ACTIVATION  ");
+                    return null;
                 }
-            return null;
         }
   
-        protected Node parseRest(TokenType t)
+        protected Node parseRest()
         {
-            switch (t)
+            scannerToken = scanner.getNextToken();
+            Console.WriteLine(scannerToken + "Rest");
+            if (scannerToken == null)
             {
-                case TokenType.RPAREN:
-                    return NIN;
+                Console.Write("NullRestDetected");
+                return null;
+            }
+            else
+            {
+                switch (scannerToken.getType())
+                {
+                    case TokenType.RPAREN:
+                        Console.Write("DON'T WANT TO BE AN AMERICAN RPAREN  ");
+                        return NIN;
 
-                default:
-                    return new Cons(parseExp(), parseRest(scannerToken.getType())); // need a . case and a null check
+                    case TokenType.DOT:
+                        Console.Write("The Warner Brothers and their Sister DOT     ");
+                        return new Cons(parseExp(), parseRest());
+
+                    default:
+                        Console.Write("FKCLFKAJSKDJ     ");
+                        return new Cons(parseExp(scannerToken), parseRest());
+                }
             }
         }
 
