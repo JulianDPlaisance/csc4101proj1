@@ -19,7 +19,7 @@ namespace Tree
             // There got to be a more efficient way to print n spaces.
             for (int i = 0; i < n; i++)
                 spaceStr += " ";
-            Console.WriteLine(spaceStr + "\"" + stringVal + "\"");
+            Console.Write(spaceStr + stringVal);
         }
 
         public override bool isString() { return true; }

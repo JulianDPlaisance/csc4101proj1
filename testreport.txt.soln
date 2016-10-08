@@ -1,0 +1,99 @@
+test0.-d:
+success
+test1:
+format
+printing
+the
+integer
+constant
+42
+failed.
+-
+-
+-
+-
+-
+1
+c1
+<
+42
+-
+-
+-
+>
+42
+no
+newline
+at
+end
+of
+file
+-
+-
+-
+-
+-
+test2:
+fail
+printing
+the
+list
+'("Hello" "World!")
+failed.
+-
+-
+-
+-
+-
+1
+c1
+2
+<
+'("Hello" "World!")
+-
+-
+-
+>
+"Hello"
+"World!"
+()
+>
+()
+-
+-
+-
+-
+-
+test3:
+fail
+the
+factorial
+function
+failed.
+-
+-
+-
+-
+-
+1
+7
+d0
+<
+(define (fac n)
+    <
+    (if (b= n 0)
+        <
+        1
+        <
+        (b* n (fac (b- n 1)))
+        <
+    )
+    <
+)
+<
+(fac 5)
+-
+-
+-
+-
+-

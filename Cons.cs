@@ -54,11 +54,8 @@ namespace Tree
                     case "LET":
                         form = new Let();
                         break;
-                    case "'":
-                        form = new Quote(false);
-                        break;
                     case "QUOTE":
-                        form = new Quote(true);
+                        form = new Quote();
                         break;
                     case "SET":
                         form = new Set();

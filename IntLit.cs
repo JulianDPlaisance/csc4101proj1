@@ -20,7 +20,7 @@ namespace Tree
             for (int i = 0; i < n; i++)
                 spaceStr += " ";
 
-            Console.WriteLine(spaceStr + intVal);
+            Console.Write(spaceStr + intVal);
         }
 
         public override bool isNumber() { return true; }

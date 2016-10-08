@@ -18,7 +18,14 @@ namespace Tree
             // There got to be a more efficient way to print n spaces.
             for (int i = 0; i < n; i++)
                 spaceStr += " ";
-            t.print(n);
+            Console.Write(spaceStr);
+
+            t.getCar().print(0);
+
+            if (t.getCdr().isPair())
+                t.getCdr().print(4, true);
+            else
+                t.getCdr().print(4);
         }
     }
 }

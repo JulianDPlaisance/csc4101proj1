@@ -20,7 +20,7 @@ namespace Tree
             for (int i = 0; i < n; i++)
                 spaceStr += " ";
 
-            Console.WriteLine(spaceStr + name);
+            Console.Write(spaceStr + name);
         }
 
         public override bool isSymbol() { return true; }

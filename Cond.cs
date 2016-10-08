@@ -23,8 +23,12 @@ namespace Tree
             if (!p)
                 Console.Write("(");
 
-            Console.WriteLine("COND");
-            t.print(n + 4, p);
+            t.getCar().print(0);
+
+            if (t.getCdr().isPair())
+                t.getCdr().print(4, true);
+            else
+                t.getCdr().print(4);
         }
     }
 }

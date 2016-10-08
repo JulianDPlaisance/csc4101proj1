@@ -54,10 +54,10 @@ namespace Parse
         public Node parseExp()
         {
             scannerToken = scanner.getNextToken();
-            Console.WriteLine(scannerToken + "ExpACL");
+            //Console.WriteLine(scannerToken + "ExpACL");
             if (scannerToken == null)
             {
-                Console.Write("NullParseExp()   ");
+                //Console.Write("NullParseExp()   ");
                 return null;
             }
             else
@@ -65,40 +65,40 @@ namespace Parse
         }
         public Node parseExp(Token t)
         {
-            Console.WriteLine(scannerToken + "Exp(Token)");
+            //Console.WriteLine(scannerToken + "Exp(Token)");
             //TODO: write code for parsing an exp
             switch (scannerToken.getType())
                 {
                     case TokenType.LPAREN:
-                    Console.Write("YEA BOI (    ");
+                  //  Console.Write("YEA BOI (    ");
                     return parseRest();
                         
                     case TokenType.FALSE:
-                    Console.Write("YEA FALSE#    ");
+                  //  Console.Write("YEA FALSE#    ");
                     return faLit;
                         
                     case TokenType.TRUE:
-                    Console.Write("YEA #TRUE    ");
+                 //   Console.Write("YEA #TRUE    ");
                     return trueLit;
 
                     case TokenType.QUOTE:
-                    Console.Write("YEA QUOTE    ");
+                 //   Console.Write("YEA QUOTE    ");
                     return new Cons(new Ident(scannerToken.getName()), new Cons(parseExp(), NIN)); //need to check for null here
 
                     case TokenType.INT:
-                    Console.WriteLine(scannerToken.getIntVal() + "INT");
+                //    Console.WriteLine(scannerToken.getIntVal() + "INT");
                     return new IntLit(scannerToken.getIntVal());
 
                     case TokenType.STRING:
-                    Console.Write("YEA STRING THEORY    ");
+                  //  Console.Write("YEA STRING THEORY    ");
                     return new StringLit(scannerToken.getStringVal());
 
                     case TokenType.IDENT:
-                    Console.Write("Clark Wayne?    ");
+                   // Console.Write("Clark Wayne?    ");
                     return new Ident(scannerToken.getName());
 
                     default:
-                    Console.Write("DEFAULT MODE ACTIVATION  ");
+                  //  Console.Write("DEFAULT MODE ACTIVATION  ");
                     return null;
                 }
         }
@@ -106,10 +106,10 @@ namespace Parse
         protected Node parseRest()
         {
             scannerToken = scanner.getNextToken();
-            Console.WriteLine(scannerToken + "Rest");
+            //Console.WriteLine(scannerToken + "Rest");
             if (scannerToken == null)
             {
-                Console.Write("NullRestDetected");
+                //Console.Write("NullRestDetected");
                 return null;
             }
             else
@@ -117,15 +117,15 @@ namespace Parse
                 switch (scannerToken.getType())
                 {
                     case TokenType.RPAREN:
-                        Console.Write("DON'T WANT TO BE AN AMERICAN RPAREN  ");
+                        //Console.Write("DON'T WANT TO BE AN AMERICAN RPAREN  ");
                         return NIN;
 
                     case TokenType.DOT:
-                        Console.Write("The Warner Brothers and their Sister DOT     ");
+                       // Console.Write("The Warner Brothers and their Sister DOT     ");
                         return new Cons(parseExp(), parseRest());
 
                     default:
-                        Console.Write("FKCLFKAJSKDJ     ");
+                       // Console.Write("FKCLFKAJSKDJ     ");
                         return new Cons(parseExp(scannerToken), parseRest());
                 }
             }

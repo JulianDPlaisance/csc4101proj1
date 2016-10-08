@@ -149,13 +149,20 @@ namespace Parse
                     int i = 0;
                     buf[i] = (char)ch;
 
-                    while (ch != ' ' || ch != '\n')
+                    while (ch != ' ' || ch != '\n' ||
+                        (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&')
+                        || ch == '*' || ch == '+' || (ch >= '-' && ch <= '/') || ch == ':'
+                        || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~')
                     {
                         if (ch != -1)
                         {
                             i++;
                             ch = In.Read();
-                            buf[i] = (char)ch;
+                            if (i < BUFSIZE)
+                                buf[i] = (char)ch;
+                            else
+                                Console.WriteLine(ch + (char)ch+ "HELP");
+
                         }
                         else
                         {

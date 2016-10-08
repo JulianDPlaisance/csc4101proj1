@@ -22,9 +22,9 @@ namespace Tree
 
             Console.Write(spaceStr);
             if (boolVal)
-                Console.WriteLine("#t");
+                Console.Write("#t");
             else
-                Console.WriteLine("#f");
+                Console.Write("#f");
         }
 
         public override bool isBool() { return true; }  // BoolLit

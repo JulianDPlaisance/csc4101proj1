@@ -7,22 +7,30 @@ namespace Tree
     public class Quote : Special
     {
         // TODO: Add any fields needed.
-        private bool isQuoteChr;
         // TODO: Add an appropriate constructor.
 
-	public Quote(bool b)
-        {
-            isQuoteChr = b;
-        }
+	public Quote()
+        { }
 
         public override void print(Node t, int n, bool p)
         {
             // TODO: Implement this function.
-            if (isQuoteChr)
-                Console.Write("'");
+            String spaceStr = "";
+            // There got to be a more efficient way to print n spaces.
+            for (int i = 0; i < n; i++)
+                spaceStr += " ";
+
+            Console.WriteLine(spaceStr);
+
+            if (!p)
+                Console.Write("(");
+
+            t.getCar().print(0);
+
+            if (t.getCdr().isPair())
+                t.getCdr().print(4, true);
             else
-                Console.Write("quote");
-            t.print(n);
+                t.getCdr().print(4);
         }
     }
 }
