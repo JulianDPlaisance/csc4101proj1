@@ -57,7 +57,7 @@ namespace Parse
             //Console.WriteLine(scannerToken + "ExpACL");
             if (scannerToken == null)
             {
-                //Console.Write("NullParseExp()   ");
+               // Console.WriteLine("NullParseExp()   ");
                 return null;
             }
             else
@@ -70,35 +70,40 @@ namespace Parse
             switch (scannerToken.getType())
                 {
                     case TokenType.LPAREN:
-                  //  Console.Write("YEA BOI (    ");
+                  //  Console.WriteLine("YEA BOI (    ");
                     return parseRest();
                         
                     case TokenType.FALSE:
-                  //  Console.Write("YEA FALSE#    ");
+                    //  Console.WriteLine("YEA FALSE#    ");
+                   // faLit.print(0);
                     return faLit;
                         
                     case TokenType.TRUE:
-                 //   Console.Write("YEA #TRUE    ");
+                    //Console.WriteLine("YEA #TRUE    ");
+                   // trueLit.print(0);
                     return trueLit;
 
                     case TokenType.QUOTE:
-                 //   Console.Write("YEA QUOTE    ");
-                    return new Cons(new Ident(scannerToken.getName()), new Cons(parseExp(), NIN)); //need to check for null here
+                  //  Console.WriteLine("YEA QUOTE    ");
+                    return new Cons(new Ident("'"), parseExp());
 
-                    case TokenType.INT:
-                //    Console.WriteLine(scannerToken.getIntVal() + "INT");
+                case TokenType.INT:
+                    //       Console.WriteLine(scannerToken.getIntVal() + "INT");
+                    //new IntLit(scannerToken.getIntVal()).print(0);
                     return new IntLit(scannerToken.getIntVal());
 
                     case TokenType.STRING:
-                  //  Console.Write("YEA STRING THEORY    ");
+                    //      Console.WriteLine("YEA STRING THEORY    ");
+                   // new StringLit(scannerToken.getStringVal()).print(0);
                     return new StringLit(scannerToken.getStringVal());
 
                     case TokenType.IDENT:
-                   // Console.Write("Clark Wayne?    ");
+                    //   Console.WriteLine("Clark Wayne?    ");
+                    //new Ident(scannerToken.getName()).print(0);
                     return new Ident(scannerToken.getName());
 
                     default:
-                  //  Console.Write("DEFAULT MODE ACTIVATION  ");
+                    //Console.WriteLine("DEFAULT MODE ACTIVATION  ");
                     return null;
                 }
         }
@@ -109,7 +114,7 @@ namespace Parse
             //Console.WriteLine(scannerToken + "Rest");
             if (scannerToken == null)
             {
-                //Console.Write("NullRestDetected");
+                //Console.WriteLine(")");
                 return null;
             }
             else
@@ -117,15 +122,15 @@ namespace Parse
                 switch (scannerToken.getType())
                 {
                     case TokenType.RPAREN:
-                        //Console.Write("DON'T WANT TO BE AN AMERICAN RPAREN  ");
+                   //     Console.WriteLine("DON'T WANT TO BE AN AMERICAN RPAREN  ");
                         return NIN;
 
                     case TokenType.DOT:
-                       // Console.Write("The Warner Brothers and their Sister DOT     ");
+                     //   Console.WriteLine("The Warner Brothers and their Sister DOT     ");
                         return new Cons(parseExp(), parseRest());
 
                     default:
-                       // Console.Write("FKCLFKAJSKDJ     ");
+                    //    Console.WriteLine("FKCLFKAJSKDJ     ");
                         return new Cons(parseExp(scannerToken), parseRest());
                 }
             }

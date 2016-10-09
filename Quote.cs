@@ -17,20 +17,26 @@ namespace Tree
             // TODO: Implement this function.
             String spaceStr = "";
             // There got to be a more efficient way to print n spaces.
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
                 spaceStr += " ";
 
-            Console.WriteLine(spaceStr);
+            Console.Write(spaceStr);
 
+
+
+            t.getCar().print(n);
             if (!p)
                 Console.Write("(");
 
-            t.getCar().print(0);
 
             if (t.getCdr().isPair())
-                t.getCdr().print(4, true);
+            {
+                t.getCdr().print(n, true);
+            }
             else
-                t.getCdr().print(4);
+            {
+                t.getCdr().print(n);
+            }
         }
     }
 }

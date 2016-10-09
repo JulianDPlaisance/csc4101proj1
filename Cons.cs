@@ -9,6 +9,7 @@ namespace Tree
         private Node car;
         private Node cdr;
         private Special form;
+        String ident;
     
         public Cons(Node a, Node d)
         {
@@ -32,7 +33,7 @@ namespace Tree
 
             if (car.isSymbol())
             {
-                String ident = ((Ident)car).ToString().ToUpper();
+                ident = ((Ident)car).ToString().ToUpper();
 
                 switch (ident)
                 {
@@ -54,19 +55,29 @@ namespace Tree
                     case "LET":
                         form = new Let();
                         break;
+                    case "'":
+                        //Console.WriteLine("AMERICA FIN");
+                        form = new Quote();
+                        break;
                     case "QUOTE":
+                        //Console.WriteLine("ORAORAORAORAORAORAORAORAORA");
                         form = new Quote();
                         break;
                     case "SET":
                         form = new Set();
                         break;
+                    case "SET!":
+                        form = new Set();
+                        break;
                     default:
+                       // Console.WriteLine("DORADORADORADORATHEEXPLORATHEEXPLORA");
                         form = new Regular();
                         break;
                 }
             }
             else
             {
+                //Console.WriteLine("FINISHED WITH THE LEMONLAIDE");
                 form = new Regular();
             }
 
@@ -95,12 +106,12 @@ namespace Tree
 
         public override void print(int n)
         {
-            form.print(this, n, false);
+            form.print(this, n + 1, false);
         }
 
         public override void print(int n, bool p)
         {
-            form.print(this, n, p);
+            form.print(this, n + 1, p);
         }
 
         public override bool isPair() { return true; }

@@ -17,14 +17,25 @@ namespace Tree
         {
             String spaceStr = "";
             // There got to be a more efficient way to print n spaces.
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
                 spaceStr += " ";
 
             Console.Write(spaceStr);
-            if (boolVal)
-                Console.Write("#t");
+
+            if (n == 0)
+            {
+                if (boolVal)
+                    Console.WriteLine("#t");
+                else
+                    Console.WriteLine("#f");
+            }
             else
-                Console.Write("#f");
+            {
+                if (boolVal)
+                    Console.Write("#t");
+                else
+                    Console.Write("#f");
+            }
         }
 
         public override bool isBool() { return true; }  // BoolLit

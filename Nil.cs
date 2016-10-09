@@ -15,17 +15,29 @@ namespace Tree
 
         public override void print(int n, bool p)
         {
+            n--;
             String spaceStr = "";
             // There got to be a more efficient way to print n spaces.
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
                 spaceStr += " ";
 
             Console.Write(spaceStr);
 
-            if (p)
-                Console.WriteLine(")");
+            if (n == 0)
+            {
+                if (!p)
+                    Console.WriteLine(")");
+                else
+                    Console.WriteLine("()");
+            }
             else
-                Console.WriteLine("()");
+            {
+                if (!p)
+                    Console.Write(")");
+                else
+                    Console.Write("()");
+            }
+
         }
 
         public override bool isNull() { return true; }

@@ -17,10 +17,14 @@ namespace Tree
         {
             String spaceStr = "";
             // There got to be a more efficient way to print n spaces.
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
                 spaceStr += " ";
 
-            Console.Write(spaceStr + intVal);
+            Console.Write(spaceStr);
+            if (n == 0)
+                Console.WriteLine(intVal);
+            else
+                Console.Write(intVal);
         }
 
         public override bool isNumber() { return true; }

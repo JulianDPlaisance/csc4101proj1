@@ -1,4 +1,4 @@
-// Scanner -- The lexical analyzer for the Scheme printer and interpreter
+﻿// Scanner -- The lexical analyzer for the Scheme printer and interpreter
 
 using System;
 using System.IO;
@@ -20,6 +20,7 @@ namespace Parse
 
         public Token getNextToken()
         {
+            buf = new char[BUFSIZE];
             int ch;
 
             try
@@ -115,7 +116,7 @@ namespace Parse
                         }
                     }
                     buf[i] = (char)ch;
-                    return new StringToken(new String(buf));
+                    return new StringToken(new String(buf, 0, i + 1));
                 }
 
 
@@ -147,31 +148,25 @@ namespace Parse
                 {
 
                     int i = 0;
-                    buf[i] = (char)ch;
 
-                    while (ch != ' ' || ch != '\n' ||
-                        (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&')
+                    while ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&')
                         || ch == '*' || ch == '+' || (ch >= '-' && ch <= '/') || ch == ':'
                         || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~')
                     {
-                        if (ch != -1)
-                        {
-                            i++;
-                            ch = In.Read();
-                            if (i < BUFSIZE)
-                                buf[i] = (char)ch;
-                            else
-                                Console.WriteLine(ch + (char)ch+ "HELP");
 
-                        }
-                        else
-                        {
-                            return null;
-                        }
+                        //Console.Write(ch + ((char)ch).ToString());
+
+                        //if (i < BUFSIZE)
+                            buf[i] = (char)ch;
+                        //else
+                            //return null;
+
+                        i++;
+                        ch = In.Read();
                     }
                     // make sure that the character following the integer
                     // is not removed from the input stream
-                    return new IdentToken(new String(buf));
+                    return new IdentToken(new String(buf, 0 , i));
                 }
 
                 // Illegal character

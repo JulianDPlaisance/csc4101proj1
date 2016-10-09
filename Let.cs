@@ -13,22 +13,27 @@ namespace Tree
 
         public override void print(Node t, int n, bool p)
         {
+            n--;
             String spaceStr = "";
             // There got to be a more efficient way to print n spaces.
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i < n; i++)
                 spaceStr += " ";
 
-            Console.WriteLine(spaceStr);
+            Console.Write(spaceStr);
 
             if (!p)
                 Console.Write("(");
 
-            t.getCar().print(0);
+            t.getCar().print(n);
 
             if (t.getCdr().isPair())
-                t.getCdr().print(4, true);
+            {
+                t.getCdr().print(n + 4, true);
+            }
             else
-                t.getCdr().print(4);
+            {
+                t.getCdr().print(n + 4);
+            }
         }
     }
 }
