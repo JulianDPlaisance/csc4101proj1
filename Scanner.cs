@@ -131,11 +131,14 @@ namespace Parse
                 else if (ch >= '0' && ch <= '9')
                 {
                     int i = ch - '0';
-                    ch = In.Read();
                     while(ch >= '0' && ch <= '9')
                     {
-                        i = (i * 10) + (ch - '0');
-                        ch = In.Read();
+                        ch = In.Peek();
+                        if (ch >= '0' && ch <= '9')
+                        {
+                            i = (i * 10) + (ch - '0');
+                            In.Read();
+                        }
                     }
                     // make sure that the character following the integer
                     // is not removed from the input stream
@@ -162,7 +165,11 @@ namespace Parse
                             //return null;
 
                         i++;
-                        ch = In.Read();
+                        ch = In.Peek();
+                        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&')
+                        || ch == '*' || ch == '+' || (ch >= '-' && ch <= '/') || ch == ':'
+                        || (ch >= '<' && ch <= '@') || ch == '^' || ch == '_' || ch == '~')
+                            In.Read();
                     }
                     // make sure that the character following the integer
                     // is not removed from the input stream
